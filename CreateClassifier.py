@@ -20,7 +20,7 @@ predictor = CustomVisionPredictionClient(ENDPOINT, prediction_credentials)
 
 # Create a new project
 print ("Creating project...")
-project = trainer.create_project("Y")
+project = trainer.create_project("Test")
 
 withMask_tag = trainer.create_tag(project.id, "With Mask")
 withoutMask_tag = trainer.create_tag(project.id, "Without Mask")
@@ -65,10 +65,10 @@ print ("Done!")
 
 with open(base_image_url + "withmask/testImg.jpg", "rb") as image_contents:
     results = predictor.classify_image(
-        "dc248edb-8a7d-4314-90a7-0494403301a3", publish_iteration_name, image_contents.read())
+        project.id, publish_iteration_name, image_contents.read())
 
     # Display the results.
     for prediction in results.predictions:
         print("\t" + prediction.tag_name +
               ": {0:.2f}%".format(prediction.probability * 100))
-    # print(project.id)
+    print(project.id)
